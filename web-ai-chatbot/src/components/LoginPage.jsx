@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 
 import { useNavigate } from 'react-router'
+import { FaEye,FaEyeSlash } from "react-icons/fa";
 
 const LoginPage = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [showPwd,setShowPwd]=useState(false);
+
+    const togglePasswordVisibility =  () => {
+        setShowPwd((prev) => !prev)
+    }
 
     const navigate=useNavigate();
 
@@ -47,22 +52,27 @@ const LoginPage = () => {
           onChange={(e) => setEmail(e.target.value)}
           className="border border-gray-300 rounded w-full px-3 py-2 mb-4 placeholder-gray-500 hover:border-blue-400"
           />
+          <div className='relative'>
+
         <input
           
           placeholder="Password"
           value={password}
-          type={showPwd ? "text" : password}
+          type={showPwd ? "text" : "password"}
           onChange={(e) => setPassword(e.target.value)}
           className="border border-gray-300 rounded w-full px-3 py-2 mb-4 placeholder-gray-500 hover:border-blue-400"
           />
-           <button
-                type="button"
-                onClick={() => setShowPwd((s) => !s)}
-                className="rounded-lg border border-slate-300 px-3 py-2 text-xs text-slate-700 hover:bg-slate-50"
-                aria-pressed={showPwd}
-                aria-label={showPwd ? "Hide password" : "Show password"}
-              />
-                {showPwd ? "Hide" : "Show"}
+
+          <button
+            type='button'
+            onClick={togglePasswordVisibility}
+            className='absolute right-3 top-2 text-gray-600 text-2xl'
+>
+            {showPwd ? <FaEye /> : <FaEyeSlash />}
+          </button>
+    </div>
+          
+                
                 
         <button
           onClick={handleSubmit}
